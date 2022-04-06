@@ -1,0 +1,67 @@
+﻿@model BlogViewModel
+<div class="container">
+    <main role="main" class="pb-3">
+
+        <div class="row">
+
+            <!-- Post Content Column -->
+            <div class="col-lg-8">
+
+                <!-- Title -->
+                <h1 class="mt-4">@Model.BlogPost.Title</h1>
+
+                <!-- Author -->
+                <p class="lead">
+                    by
+                    <a href="#">Chavi Herzka</a>
+                </p>
+
+                <hr>
+
+                <!-- Date/Time -->
+                <p>Posted on @Model.BlogPost.DatePosted.ToLongDateString()</p>
+                <p>@Model.BlogPost.Text</p>
+
+                <hr>
+                <!--Comments Form-->
+
+                <div class="card my-4">
+                    <h5 class="card-header">Leave a Comment</h5>
+                    <div class="card-body">
+                        <form method="post" action="/home/addcomment">
+                            <input type="hidden" value="@Model.BlogPost.Id" name="BlogPostId" />
+                            <br />
+                            <div class="form-group">
+                                <input type="text" placeholder="Enter your user name to leave a comment" class="form-control" id="name" name="Name" value="@Model.Name" />
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                <textarea placeholder="Type your comment here make sure to be nice..." id="comment" name="Text" class="form-control" rows="3"></textarea>
+                            </div>
+                            <br />
+                            <div>
+                                <button id="submit" disabled class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                @foreach (Comment comment in Model.Comments)
+                {
+                    <div class="media mb-4">
+                        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                        <div class="media-body">
+                            <h5 class="mt-0">
+                                @comment.Name
+                                <small>@comment.Date.ToString();</small>
+                            </h5>
+                            @comment.Text
+                        </div>
+                    </div>
+                }
+            </div>
+    </main>
+</div>
+
+@section scripts{
+<script src="~/js/comment.js"></script>
+}

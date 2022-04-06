@@ -1,0 +1,51 @@
+﻿@model BlogPostsViewModel
+<div class="container">
+    <main role="main" class="pb-3">
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                <!-- Blog Entries Column -->
+                <div class="col-md-8">
+
+                    <h1 class="my-4">
+                        LIT Blog
+                        <small>Nothing to see here...</small>
+                    </h1>
+                    @foreach (Blog blogPost in Model.BlogPosts)
+                    {
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="card-title">
+                                    <a href="/home/viewblog?id=@blogPost.Id">@blogPost.Title</a>
+                                </h2>
+                                <p class="card-text">@blogPost.SubText</p>
+                                <a href="/home/viewblog?id=@blogPost.Id" class="btn btn-primary">Read More &rarr;</a>
+                            </div>
+                            <div class="card-footer text-muted">
+                                Posted on @blogPost.DatePosted.ToLongDateString() by Chavi Herzka
+                            </div>
+                        </div>
+                    }
+                    <ul class="pagination justify-content-center mb-4">
+
+                        @if (Model.currentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?page=@(Model.currentPage - 1)">&larr; Previous </a>
+                            </li>
+                        }
+
+                        @if (Model.totalPages > Model.currentPage)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/home/index?page=@(Model.currentPage + 1)">Next &rarr;</a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+            <!-- /.row -->
+
+        </div>
